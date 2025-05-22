@@ -1,0 +1,106 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url = env("DATABASE_URL")
+}
+
+model User{
+    id            String  @id @default(uuid())
+    clerkUserId   String  @unique
+    email         String  @unique
+    name          String? 
+    imageUrl      String?
+    industry      String?  @unique
+    industryInsight  IndustryInsights? @relation(fields: [industry], references: [industry])
+    createdAt     DateTime @default(now())
+    updatedAt     DateTime @updatedAt
+
+
+    bio           String?
+    experience    Int?
+    skills        String[]
+
+    assessments   Assessment[]
+    resume        Resume?
+    coverLetter   CoverLetter[]
+}
+
+model Assessment{
+    id              String  @id @default(cuid())
+    userId          String
+    user            User    @relation(fields: [userId],references: [id])
+    quizScore       Float   
+    questions       Json[]
+    category        String
+    improvementTip  String?
+    createdAt       DateTime @default(now())
+    updatedAt       DateTime @updatedAt
+
+    @@index([userId])
+
+
+}
+
+model Resume{
+    id             String   @id @default(cuid())
+    userId         String   @unique
+    user           User     @relation(fields: [userId],references: [id])
+    content        String   @db.Text
+    atsScore       Float?
+    feedback       String?
+    createdAt      DateTime @default(now())
+    updatedAt      DateTime @updatedAt 
+
+
+}
+
+model CoverLetter{
+    id             String   @id @default(cuid())
+    userId         String   @unique
+    user           User     @relation(fields: [userId],references: [id])
+    content        String   @db.Text
+    jobDescription String?
+    companyName    String
+    jobTitle       String
+    createdAt      DateTime @default(now())
+    updatedAt      DateTime @updatedAt 
+
+    @@index([userId])
+
+}
+
+model IndustryInsights{
+    id            String     @id @default(cuid())
+    industry      String     @unique
+
+    users         User?      
+
+    salaryRange   Json[]
+    growthRate    Float
+    demandLevel   DemandLevel
+    topSkills     String[]
+
+    marketOutLook MarketOutLook
+    keyTrends     String[]
+
+    recommendedSkill  String[]
+    lastUpdated   DateTime    @default(now())
+    nextUpdate    DateTime
+
+    @@index([industry])
+}
+
+enum DemandLevel{
+    HIGH
+    MEDIUM
+    LOW
+}
+
+enum MarketOutLook{
+    POSITIVE
+    NEUTRAL
+    NEGATIVE
+}
