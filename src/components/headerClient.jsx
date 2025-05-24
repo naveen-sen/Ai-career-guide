@@ -48,7 +48,7 @@ export default function HeaderClient({ user }) {
                   </Button>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <Link href={'/interview-prep'}>
+                  <Link href={'/interview/mock'}>
                     <Button className='flex items-center w-full'>
                       <GraduationCap className='w-5 h-5 mr-2' />
                       <span className='hidden md:block '>Interview Prep</span>

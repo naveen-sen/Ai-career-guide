@@ -15,7 +15,6 @@ const useFetch = (cb) => {
       const response = await cb(...args);
       setData(response);
       setError(null);
-      toast.success("Profile updated successfully");
     } catch (error) {
       setError(error);
       toast.error(error.message);
