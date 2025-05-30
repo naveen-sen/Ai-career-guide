@@ -22,7 +22,7 @@ export async function generateQuiz() {
   if (!user) throw new Error("User not found");
 
   const prompt = `
-    Generate 3 technical interview questions for a ${
+    Generate 10 technical interview questions for a ${
       user.industry
     } professional${
     user.skills?.length ? ` with expertise in ${user.skills.join(", ")}` : ""
@@ -52,7 +52,6 @@ export async function generateQuiz() {
 
     return quiz.questions;
   } catch (error) {
-    console.error("Error generating quiz:", error);
     throw new Error("Failed to generate quiz questions");
   }
 }
@@ -67,7 +66,6 @@ export async function saveQuizResult(questions, answers, score) {
 
   if (!user) throw new Error("User not found");
 
-  console.log("Scores",score)
   const questionResults = questions.map((q, index) => ({
     question: q.question,
     answer: q.correctAnswer,
@@ -104,7 +102,6 @@ export async function saveQuizResult(questions, answers, score) {
       const tipResult = await model.generateContent(improvementPrompt);
 
       improvementTip = tipResult.response.text().trim();
-      console.log(improvementTip);
     } catch (error) {
       console.error("Error generating improvement tip:", error);
       // Continue without improvement tip if generation fails
@@ -128,7 +125,6 @@ export async function saveQuizResult(questions, answers, score) {
 
     return assessment;
   } catch (error) {
-    console.error("Error saving quiz result:", error);
     throw new Error("Failed to save quiz result"+error.message);
   }
 }
@@ -137,7 +133,7 @@ export const getAssessmnets = async()=>{
   const { userId } = await auth();
   if (!userId) throw new Error("Unauthorized");
 
-  const user = await db.User.findUnique({
+  const user = await db.user.findUnique({
     where: { clerkUserId: userId },
   });
 
@@ -156,7 +152,6 @@ export const getAssessmnets = async()=>{
     });
     return assessments;
   }catch(error){
-    console.error("Error getting assessments:", error);
     throw new Error("Failed to get assessments");
   }
 

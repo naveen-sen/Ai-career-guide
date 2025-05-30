@@ -128,7 +128,7 @@ const Quiz = () => {
                     <CardTitle>Question {currentQuestion + 1} of {quizData.length}</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <p className='text-lg font-medium'>{question.question}</p>
+                        <p className='text-lg font-medium pb-2'>{question.question}</p>
 
                         <RadioGroup className='space-y-2'
                             onValueChange={handleAnswer}
@@ -136,7 +136,7 @@ const Quiz = () => {
                         >
                             {question.options.map((option,index)=>{
                                 return(
-                                    <div className="flex items-center space-x-2">
+                                    <div className="flex items-center space-x-2 ">
                                 <RadioGroupItem value={option} id={`option-${index}`} />
                                 <Label htmlFor={`option-${index}`}>{option}</Label>
                             </div>

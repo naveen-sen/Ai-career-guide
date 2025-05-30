@@ -1,10 +1,33 @@
+"use server"
 import React from 'react'
 
-async function Page({params}) {
-    const id = await params.id
+import { Button } from '@/components/ui/button'
+import { ArrowLeft, Plus } from 'lucide-react'
+import Link from 'next/link'
+import { getCoverLetter } from '../../../../../actions/cover-letter'
+import CoverLetterPreview from '../_components/cover-letter-preview'
+
+export async function EditCoverLetterPage({params}) {
+  const { id } = params
+  const coverLetters = await getCoverLetter(id)
   return (
-    <div>Ai Cover Letter Page : {id}</div>
+     <div className="container mx-auto py-6">
+      <div className="flex flex-col space-y-2">
+        <Link href="/ai-cover-letter">
+          <Button variant="link" className="gap-2 pl-0">
+            <ArrowLeft className="h-4 w-4" />
+            Back to Cover Letters
+          </Button>
+        </Link>
+
+        <h1 className="text-6xl font-bold gradient-title mb-6">
+          {coverLetters?.jobTitle} at {coverLetters?.companyName}
+        </h1>
+      </div>
+
+      <CoverLetterPreview content={coverLetters?.content} />
+    </div>
   )
 }
 
-export default Page
+export default EditCoverLetterPage

@@ -1,9 +1,14 @@
 import React from 'react'
+import { getResume } from '../../../../actions/resume'
+import ResumeBuilder from './_components/resumeBuilder'
 
-function Page() {
+async function ResumePage() {
+  const resume = await getResume()
   return (
-    <div>Resume Page</div>
+    <div>
+      <ResumeBuilder initialContent={resume?.content} />
+    </div>
   )
 }
 
-export default Page
+export default ResumePage

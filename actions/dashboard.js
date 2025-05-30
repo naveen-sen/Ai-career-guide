@@ -53,7 +53,7 @@ export async function getIndustryInsights() {
   if (!user.industryInsight) {
     const insights = await generateAIInsights(user.industry);
 
-    const industryInsight = await db.industryInsight.create({
+    const industryInsight = await db.IndustryInsights.create({
       data: {
         industry: user.industry,
         ...insights,

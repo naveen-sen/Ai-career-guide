@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Brain, Trophy } from 'lucide-react';
+import { Brain, Target, Trophy } from 'lucide-react';
 import React from 'react'
 
 const StatsCard = ({ assessments }) => {
@@ -11,7 +11,7 @@ const StatsCard = ({ assessments }) => {
 
     const getLatestAssessment = ()=>{
         if(!assessments?.length) return null;
-        return assessments[0];
+        return assessments[assessments.length-1];
     }
 
     const getTotalQuestions = ()=>{
@@ -34,8 +34,8 @@ const StatsCard = ({ assessments }) => {
 
             <Card>
                 <CardHeader className='flex flex-row items-center justify-between space-y-0 '>
-                    <CardTitle>Questions Practised</CardTitle>
-                            <Brain className={`h-4 w-4 text-yellow-500`} />
+                    <CardTitle>Questions Practiced</CardTitle>
+                            <Brain className={`h-4 w-4`} />
                     </CardHeader>
                     <CardContent>
                         <div className='text-xl font-bold'>{getTotalQuestions()}</div>
@@ -45,7 +45,7 @@ const StatsCard = ({ assessments }) => {
             <Card>
                 <CardHeader className='flex flex-row items-center justify-between space-y-0 '>
                     <CardTitle>Latest Score</CardTitle>
-                            <Brain className={`h-4 w-4 text-yellow-500`} />
+                            <Target className={`h-4 w-4 text-yellow-500`} />
                     </CardHeader>
                     <CardContent>
                         <div className='text-xl font-bold'>{getLatestAssessment()?.quizScore.toFixed(1) || 0}%</div>

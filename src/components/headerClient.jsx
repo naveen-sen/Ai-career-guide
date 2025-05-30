@@ -36,19 +36,23 @@ export default function HeaderClient({ user }) {
               </DropdownMenuTrigger>
               <DropdownMenuContent>
                 <DropdownMenuItem>
+                  <Link href={'/resume'}>
                   <Button className='flex items-center w-full'>
                     <FileText className='w-5 h-5 mr-2' />
                     <span className='hidden md:block '>Build Resume</span>
                   </Button>
+                  </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <Button className='flex items-center w-full'>
+                  <Link href={'/ai-cover-letter'}>
+                  <Button className='flex items-center w-full mr-2'>
                     <PenBox className='w-5 h-5 mr-2' />
                     <span className='hidden md:block '>Cover Letter</span>
                   </Button>
+                  </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem>
-                  <Link href={'/interview/mock'}>
+                  <Link href={'/interview'}>
                     <Button className='flex items-center w-full'>
                       <GraduationCap className='w-5 h-5 mr-2' />
                       <span className='hidden md:block '>Interview Prep</span>
