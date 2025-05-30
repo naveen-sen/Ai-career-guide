@@ -5,7 +5,7 @@ import { Progress } from '@/components/ui/progress';
 import { format, formatDistanceToNow } from 'date-fns';
 import { Brain, BrainCircuit, BrainCogIcon, Briefcase, LineChart, TrendingDown, TrendingUp } from 'lucide-react';
 import React from 'react'
-import { Bar, BarChart, CartesianGrid, Tooltip, XAxis, YAxis } from 'recharts';
+import { Bar, BarChart, CartesianGrid, Tooltip, XAxis, YAxis, ResponsiveContainer } from 'recharts';
 
 
 function DashboardView({ insights }) {
@@ -115,10 +115,17 @@ function DashboardView({ insights }) {
                     <p className='text-xs text-muted-foreground  '>Displaying Minimum, Median and Maximum Salaries (in INR)</p>
                 </CardDescription>
             </CardHeader>
-            <CardContent>
-                <BarChart width={1200} height={400} data={salaryData}>
+            <CardContent className='w-full'>
+                <ResponsiveContainer width="100%" height={400}>
+                <BarChart data={salaryData}>
                     <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="name" />
+                    <XAxis dataKey="name"
+                            tick={{ fontSize: 16 }}
+                            interval={0}
+                            angle={-45}
+                            textAnchor="end"
+                            height={150}
+                    />
                     <YAxis />
                     <Tooltip content={({active,payload,label})=>{
                         return(
@@ -134,6 +141,7 @@ function DashboardView({ insights }) {
                     <Bar dataKey="median" fill="#ffc658" />
                     <Bar dataKey="max" fill="#82ca9d" />
                 </BarChart>
+                </ResponsiveContainer>
             </CardContent>
         </Card>
 
